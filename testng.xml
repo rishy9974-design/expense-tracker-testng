@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="ExpenseTrackerSuite" verbose="1">
+    <parameter name="appUrl" value="http://localhost:8080/index.html"/>
+
+    <test name="ExpenseTrackerFunctionalTests">
+        <classes>
+            <class name="com.expensetracker.tests.ExpenseTrackerTest"/>
+        </classes>
+    </test>
+</suite>

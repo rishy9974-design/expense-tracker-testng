@@ -1,0 +1,29 @@
+name: TestNG CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  testng-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Start local web server for ExpenseTracker app
+        run: |
+          nohup python3 -m http.server 8080 --directory app &
+          sleep 2
+
+      - name: Run TestNG test suite via Maven Surefire
+        run: mvn clean test -DsuiteXmlFile=testng.xml
